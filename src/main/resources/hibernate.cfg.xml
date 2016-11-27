@@ -6,9 +6,9 @@
 	<session-factory>
 		<!-- Database connection properties - Driver, URL, user, password -->
 		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="hibernate.connection.url">jdbc:mysql://localhost/TestDB</property>
-		<property name="hibernate.connection.username">pankaj</property>
-		<property name="hibernate.connection.password">pankaj123</property>
+		<property name="hibernate.connection.url">jdbc:mysql://192.168.0.102:6603/db1</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.connection.password">12345</property>
 		<!-- Connection Pool Size -->
 		<property name="hibernate.connection.pool_size">1</property>
 		

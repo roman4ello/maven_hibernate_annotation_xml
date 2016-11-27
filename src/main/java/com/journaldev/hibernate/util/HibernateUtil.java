@@ -1,13 +1,12 @@
 package com.journaldev.hibernate.util;
 
-import java.util.Properties;
-
+import com.journaldev.hibernate.model.Employee1;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
-import com.journaldev.hibernate.model.Employee1;
+import java.util.Properties;
 
 public class HibernateUtil {
 
@@ -69,9 +68,9 @@ public class HibernateUtil {
 		//Create Properties, can be read from property files too
 		Properties props = new Properties();
 		props.put("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
-		props.put("hibernate.connection.url", "jdbc:mysql://localhost/TestDB");
-		props.put("hibernate.connection.username", "pankaj");
-		props.put("hibernate.connection.password", "pankaj123");
+		props.put("hibernate.connection.url", "jdbc:mysql://192.168.0.102:6603/db1");
+		props.put("hibernate.connection.username", "root");
+		props.put("hibernate.connection.password", "12345");
 		props.put("hibernate.current_session_context_class", "thread");
 		
 		configuration.setProperties(props);
