@@ -8,8 +8,27 @@ import org.hibernate.SessionFactory;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 
 public class HibernateAnnotationMain {
+
+    private static final String names[] = {
+            "Emily","Michael","Emma","Joshua","Madison",
+            "Matthew","Olivia","Ethan","Hannah","Andrew",
+            "Abigail","Daniel","Isabella","William","Ashley",
+            "Joseph","Samantha","Christopher","Elizabeth","Anthony",
+            "Alexis","Ryan","Sarah","Nicholas","Grace",
+            "David","Alyssa","Alexander","Sophia","Tyler",
+            "Lauren","James","Brianna","John","Kayla",
+            "Dylan","Natalie","Nathan","Anna","Jonathan",
+            "Jessica","Brandon","Taylor","Samuel","Chloe",
+            "Christian","Hailey","Benjamin"
+           };
+    private static final String roles[] = {
+            "QAEngineer", "CEO", "DEV", "Tester", "Manager"};
+
+    private static final String dates[] = {
+            "QAEngineer", "CEO", "DEV", "Tester", "Manager"};
 
 
     public void HQLDwery1() {
@@ -54,7 +73,6 @@ public class HibernateAnnotationMain {
         //terminate session factory, otherwise program won't end
         sessionFactory.close();
     }
-
 
     //all employee
     public void HQLQwerySelectAllCortages() {
@@ -168,8 +186,8 @@ public class HibernateAnnotationMain {
             if (inclusiveFlag) {
                 System.out.println("Sorry, but no cartage during:  " + insertTimeFrom + " and " + insertTimeTo + " inclusing in this DataBase");
             } else {
-                System.out.println("Sorry, but no cartage during:  " + insertTimeFrom + " and " + insertTimeTo + " unIncluding in this DataBase");
 
+                System.out.println("Sorry, but no cartage during:  " + insertTimeFrom + " and " + insertTimeTo + " unIncluding in this DataBase");
             }
 
         } else {
@@ -183,6 +201,26 @@ public class HibernateAnnotationMain {
     }
 
 
+    //insert employees
+    public void HQLQweryInsertCortages() {
+
+        SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
+        Session session = sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        Employee1 employee1;
+
+        for (int i = 0; i < names.length - 1; i++) {
+
+            employee1 = new Employee1();
+            employee1.setName(names[new Random().nextInt(names.length)]);
+            employee1.setRole(roles[new Random().nextInt(roles.length)]);
+            employee1.setInsertTime(new Date(i * 29981100000L));
+            session.save(employee1);
+        }
+
+        session.getTransaction().commit();
+        sessionFactory.close();
+    }
 
 
     public static void main(String[] args) {
@@ -192,8 +230,8 @@ public class HibernateAnnotationMain {
 //        hibernateAnnotationMain.HQLQwerySelectCortageByName("David");
 //        hibernateAnnotationMain.HQLQwerySelectCortageByDate("2016-11-27");
 //        hibernateAnnotationMain.HQLQwerySelectCortagesAfterDate("2016-11-24");
-        hibernateAnnotationMain.HQLQwerySelectCortagesBetweenDates("2016-11-01", "2016-11-27", false);
-
+//        hibernateAnnotationMain.HQLQwerySelectCortagesBetweenDates("2016-11-01", "2016-11-27", false);
+        hibernateAnnotationMain.HQLQweryInsertCortages();
 
     }
 
