@@ -2,9 +2,11 @@ package com.journaldev.hibernate.main;
 
 import com.journaldev.hibernate.model.Employee1;
 import com.journaldev.hibernate.util.HibernateUtil;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,21 +15,18 @@ import java.util.Random;
 public class HibernateAnnotationMain {
 
     private static final String names[] = {
-            "Emily","Michael","Emma","Joshua","Madison",
-            "Matthew","Olivia","Ethan","Hannah","Andrew",
-            "Abigail","Daniel","Isabella","William","Ashley",
-            "Joseph","Samantha","Christopher","Elizabeth","Anthony",
-            "Alexis","Ryan","Sarah","Nicholas","Grace",
-            "David","Alyssa","Alexander","Sophia","Tyler",
-            "Lauren","James","Brianna","John","Kayla",
-            "Dylan","Natalie","Nathan","Anna","Jonathan",
-            "Jessica","Brandon","Taylor","Samuel","Chloe",
-            "Christian","Hailey","Benjamin"
-           };
+            "Emily", "Michael", "Emma", "Joshua", "Madison",
+            "Matthew", "Olivia", "Ethan", "Hannah", "Andrew",
+            "Abigail", "Daniel", "Isabella", "William", "Ashley",
+            "Joseph", "Samantha", "Christopher", "Elizabeth", "Anthony",
+            "Alexis", "Ryan", "Sarah", "Nicholas", "Grace",
+            "David", "Alyssa", "Alexander", "Sophia", "Tyler",
+            "Lauren", "James", "Brianna", "John", "Kayla",
+            "Dylan", "Natalie", "Nathan", "Anna", "Jonathan",
+            "Jessica", "Brandon", "Taylor", "Samuel", "Chloe",
+            "Christian", "Hailey", "Benjamin"
+    };
     private static final String roles[] = {
-            "QAEngineer", "CEO", "DEV", "Tester", "Manager"};
-
-    private static final String dates[] = {
             "QAEngineer", "CEO", "DEV", "Tester", "Manager"};
 
 
@@ -84,16 +83,26 @@ public class HibernateAnnotationMain {
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
 
-        Query query = session.createQuery(myHQL);
-        ArrayList<Employee1> result_list = new ArrayList<Employee1>(query.list());
-
-        if (result_list.size() == 0) {
-            System.out.println("Sorry, but no cartage in this DataBase");
-        } else {
-            for (Employee1 employee1 : result_list) {
-                System.out.println(employee1);
-            }
+        Criteria cr = session.createCriteria(Employee1.class);
+        cr.add(Restrictions.between("insertTime", new Date(1 * 29981100000L), new Date(20 * 29981100000L)));
+//        cr.add(Restrictions.between("insertTime", new Date(1 * 29981100000L), new Date(20 * 29981100000L)));
+//       cr.add(Restrictions.eq("name", "Chloe"));
+//        List results = cr.list();
+        ArrayList<Employee1> employee1s = new ArrayList<Employee1>(cr.list());
+        for (Employee1 employee1 : employee1s) {
+            System.out.println(employee1);
         }
+
+//        Query query = session.createQuery(myHQL);
+//        ArrayList<Employee1> result_list = new ArrayList<Employee1>(query.list());
+//
+//        if (result_list.size() == 0) {
+//            System.out.println("Sorry, but no cartage in this DataBase");
+//        } else {
+//            for (Employee1 employee1 : result_list) {
+//                System.out.println(employee1);
+//            }
+//        }
 
         session.getTransaction().commit();
         sessionFactory.close();
@@ -226,12 +235,13 @@ public class HibernateAnnotationMain {
     public static void main(String[] args) {
 
         HibernateAnnotationMain hibernateAnnotationMain = new HibernateAnnotationMain();
-//        hibernateAnnotationMain.HQLQwerySelectAllCortages();
+        hibernateAnnotationMain.HQLQwerySelectAllCortages();
+
 //        hibernateAnnotationMain.HQLQwerySelectCortageByName("David");
 //        hibernateAnnotationMain.HQLQwerySelectCortageByDate("2016-11-27");
 //        hibernateAnnotationMain.HQLQwerySelectCortagesAfterDate("2016-11-24");
 //        hibernateAnnotationMain.HQLQwerySelectCortagesBetweenDates("2016-11-01", "2016-11-27", false);
-        hibernateAnnotationMain.HQLQweryInsertCortages();
+//        hibernateAnnotationMain.HQLQweryInsertCortages();
 
     }
 
